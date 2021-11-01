@@ -99,29 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    Theme.of(context).backgroundColor),
-                overlayColor: MaterialStateProperty.resolveWith((states) =>
-                    states.contains(MaterialState.pressed)
-                        ? Colors.blue
-                        : null),
-                minimumSize: MaterialStateProperty.all(
-                  Size(
-                      double.infinity, MediaQuery.of(context).size.height / 16),
-                ),
-              ),
-              onPressed: () {
-                var result = weight / pow(height / 100, 2);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResultScreen(
-                            result: result, isMale: isMale, age: age)));
-              },
-              child: Text('Calculate'),
-            )
+           buildButton(),
           ],
         ),
       ),
@@ -217,6 +195,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildButton() {
+    return ElevatedButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        )),
+        backgroundColor:
+            MaterialStateProperty.all(Theme.of(context).backgroundColor),
+        overlayColor: MaterialStateProperty.resolveWith((states) =>
+            states.contains(MaterialState.pressed) ? Colors.blue : null),
+        minimumSize: MaterialStateProperty.all(
+          Size(double.infinity, MediaQuery.of(context).size.height / 16),
+        ),
+      ),
+      onPressed: () {
+        var result = weight / pow(height / 100, 2);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ResultScreen(result: result, isMale: isMale, age: age)));
+      },
+      child: Text('Calculate'),
     );
   }
 }
